@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #15151a;
+  color: #f4f4f5;
+}
+
+.app-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #b8b8c0;
+}
+
+.tool-card {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #33333d;
+  border-radius: 14px;
+  background: #202029;
+}
+
+button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
