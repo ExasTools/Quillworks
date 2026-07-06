@@ -33,6 +33,7 @@ function displayHeader() {
 function displayLoreHeader() {
   return `
     <main class="app-shell">
+    <h1> The Lore Vault </h1>
       <section class="header-section">
         <button id="home-button" class="nav-button">Home</button>
         <button id="char-button" class="nav-button">Characters</button>
@@ -68,6 +69,24 @@ function hookAltHeader() { // I decided against resusing hookHeaderButtons()
   document.querySelector("#gods-button").addEventListener('click', lvGods)
   document.querySelector("#nations-button").addEventListener('click', lvNations)
   document.querySelector("#factions-button").addEventListener('click', lvFactions)
+  
+}
+
+function charSubmit() {
+  const charName = document.querySelector("#charName")
+  const charNick = document.querySelector("#charNickname")
+  const charAge = document.querySelector("#charAge")
+  const charRace = document.querySelector("#charRace")
+  const charDesc = document.querySelector("#charDesc")
+
+  console.log({
+    name: charName.value,
+    nickname: charNick.value,
+    age: charAge.value,
+    race: charRace.value,
+    description: charDesc.value
+
+  })
 }
 
 function showLoreVault() {
@@ -76,8 +95,8 @@ function showLoreVault() {
       ${displayLoreHeader()}
 
       <section class="tool-card">
-        <h1>Lorem 1</h1>
-        <p class="subtitle">This is but a test of Lorem 1.</p>
+        <h1>Lore Vault</h1>
+        <p class="subtitle">You may select your desired 'mode' at the top.</p>
       </section>
     </main>
     `
@@ -116,11 +135,29 @@ function lvChar() {
     <main class="app-shell">
     ${displayLoreHeader()}
     <br>
-    <section class="tool-card">
-      <p>Character page</p>
+    <section class="tool-card-char-page">
+    <form>  
+    <label>Character Name</label>
+      <input class="field-input" id="charName">
+      <br>
+      <label>Character Nickname</label>
+      <input class="field-input" id="charNickname">
+      <br>
+      <label>Age</label>
+      <input class="field-input" id="charAge">
+      <br>
+      <label>Race</label>
+      <input class="field-input" id="charRace">
+      <br>
+      <label>Description</label>
+      <input class="field-input" id="charDesc">
+      <br><br>
+      <button id=submit-button>Export to Console</button>
+    </form>
     </section>
   `
   hookAltHeader()
+  document.querySelector("#submit-button").addEventListener('click', charSubmit)
 }
 
 function lvPlaces() {

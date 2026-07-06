@@ -27,6 +27,15 @@ h1 {
   background: #202029;
 }
 
+.tool-card-char-page {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #33333d;
+  border-radius: 14px;
+  background:#202029;
+  justify-content: center;
+}
+
 button {
   padding: 10px 14px;
   border: 0;
@@ -55,4 +64,12 @@ header {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+
+.field-input {
+  background-color: #33333d;
+  color: white;
+  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
