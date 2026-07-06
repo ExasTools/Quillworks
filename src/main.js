@@ -30,6 +30,24 @@ function displayHeader() {
   `
 }
 
+function displayLoreHeader() {
+  return `
+    <main class="app-shell">
+      <section class="header-section">
+        <button id="home-button" class="nav-button">Home</button>
+        <button id="char-button" class="nav-button">Characters</button>
+        <button id="locs-button" class="nav-button">Places</button>
+        <button id="events-button" class="nav-button">Events</button>
+        <button id="tags-button" class="nav-button">Tags</button>
+        <button id="time-button" class="nav-button">Timeline</button>
+        <button id="religion-button" class="nav-button">Religions</button>
+        <button id="gods-button" class="nav-button">Gods/Higher Powers</button>
+        <button id="nations-button" class="nav-button">Nations</button>
+        <button id="factions-button" class="nav-button">Factions</button>
+      </section>
+  `
+}
+
 function hookHeaderButtons() {
   // because displayHeader() doesn't return any actual javascript- only HTML
   // this will hook the headers so the buttons can actually be used. 
@@ -39,16 +57,31 @@ function hookHeaderButtons() {
   document.querySelector('#settings-button').addEventListener('click', showSettings)
 }
 
+function hookAltHeader() { // I decided against resusing hookHeaderButtons()
+  document.querySelector("#home-button").addEventListener('click', showHome)
+  document.querySelector("#char-button").addEventListener('click', lvChar)
+  document.querySelector("#locs-button").addEventListener('click', lvPlaces)
+  document.querySelector("#events-button").addEventListener('click', lvEvents)
+  document.querySelector("#tags-button").addEventListener('click', lvTags)
+  document.querySelector("#time-button").addEventListener('click', lvTimeline)
+  document.querySelector("#religion-button").addEventListener('click', lvReligion)
+  document.querySelector("#gods-button").addEventListener('click', lvGods)
+  document.querySelector("#nations-button").addEventListener('click', lvNations)
+  document.querySelector("#factions-button").addEventListener('click', lvFactions)
+}
+
 function showLoreVault() {
   app.innerHTML = `
     <main class="app-shell">
-      ${displayHeader()}
-      <h1>Lorem 1</h1>
-      <p class="subtitle">This is but a test of Lorem 1.</p>
+      ${displayLoreHeader()}
 
+      <section class="tool-card">
+        <h1>Lorem 1</h1>
+        <p class="subtitle">This is but a test of Lorem 1.</p>
+      </section>
     </main>
     `
-    hookHeaderButtons()
+    hookAltHeader()
 }
 
 function showWritingDesk() {
@@ -74,6 +107,116 @@ function showSettings() {
     </main>
   `
   hookHeaderButtons()
+}
+
+// Lore Vault!
+
+function lvChar() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Character page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvPlaces() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Places page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvEvents() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>CEvents page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvTags() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Tags page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvTimeline() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Timeline page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvReligion() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Religion page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvGods() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Gods/Deities page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvNations() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Nations page</p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function lvFactions() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p>Factions page</p>
+    </section>
+  `
+  hookAltHeader()
 }
 
 showHome()
