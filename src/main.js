@@ -9,6 +9,7 @@ function showHome() {
       
       <section class="tool-card">
         <p> Currently, the only features available is a very rudamentary character input screen. More to come... </p>
+        <p> That said, to those that read this- thank you for checking out what I'm working on! I really appreciate it more than I can convey through text </p>
       </section>
     </main>
     `
