@@ -8,7 +8,7 @@ function showHome() {
       ${displayHeader()}
       
       <section class="tool-card">
-        <p> It should be selectable from the header </p>
+        <p> Currently, the only features available is a very rudamentary character input screen. More to come... </p>
       </section>
     </main>
     `
@@ -19,7 +19,6 @@ function showHome() {
 
 function displayHeader() {
   return `
-  <main class="app-shell">
     <h1> Exa's Writing Tools </h1>
     <section class="header-section">
       <button id="home-button" class="nav-button">Home</button>
@@ -32,7 +31,6 @@ function displayHeader() {
 
 function displayLoreHeader() {
   return `
-    <main class="app-shell">
     <h1> The Lore Vault </h1>
       <section class="header-section">
         <button id="home-button" class="nav-button">Home</button>
@@ -107,8 +105,8 @@ function showWritingDesk() {
   app.innerHTML = `
     <main class="app-shell">
       ${displayHeader()}
-      <h1>Lorem 2</h1>
-      <p class="subtitle">Second test of Lorem 2. </p>
+      <h1>Writing Desk</h1>
+      <p class="subtitle">Unavailable at this stage, but I promise it'll be soon!</p>
 
     </main>
   `
@@ -121,7 +119,8 @@ function showSettings() {
     <main class="app-shell">
       ${displayHeader()}
       <br>
-      <p class="subtitle">it works too... </p>
+      <h1> Settings Page </h1>
+      <p class="subtitle">Unavailable at this stage, will be made later on. </p>
 
     </main>
   `
@@ -135,8 +134,7 @@ function lvChar() {
     <main class="app-shell">
     ${displayLoreHeader()}
     <br>
-    <section class="tool-card-char-page">
-    <form>  
+    <section class="tool-card-char-page">  
     <label>Character Name</label>
       <input class="field-input" id="charName">
       <br>
@@ -152,8 +150,7 @@ function lvChar() {
       <label>Description</label>
       <input class="field-input" id="charDesc">
       <br><br>
-      <button id=submit-button>Export to Console</button>
-    </form>
+      <button id="submit-button">Export to Console</button>
     </section>
   `
   hookAltHeader()
