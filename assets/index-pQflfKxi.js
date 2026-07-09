@@ -77,15 +77,18 @@
     </section>
 
     <section class="tool-card" id="characters-list"></section>
-  `,o(),document.querySelector(`#submit-button`).addEventListener(`click`,()=>{let e=document.querySelector(`#charName`),n=document.querySelector(`#charNickname`),r=document.querySelector(`#charAge`),i=document.querySelector(`#charRace`),a=document.querySelector(`#charDesc`),o={name:e.value,nickname:n.value,age:r.value,race:i.value,description:a.value};t.push(o),console.log(t),d(1)})}function d(e){if(!Number.isInteger(e)){console.error(`formID must be an integer`);return}switch(e){case 1:document.querySelector(`#characters-list`).innerHTML=t.map(e=>`
+  `,o(),document.querySelector(`#submit-button`).addEventListener(`click`,()=>{let e=document.querySelector(`#charName`),n=document.querySelector(`#charNickname`),r=document.querySelector(`#charAge`),i=document.querySelector(`#charRace`),a=document.querySelector(`#charDesc`),o={name:e.value||`Missing Information`,nickname:n.value||`Missing Information`,age:r.value||`Missing Information`,race:i.value||`Missing Information`,description:a.value||`Missing Information`};t.push(o),console.log(t),d(1)})}function d(e){if(!Number.isInteger(e)){console.error(`formID must be an integer`);return}switch(e){case 1:document.querySelector(`#characters-list`).innerHTML=t.map((e,t)=>`
           <section class="character-card">
           <h2>Name: ${e.name}</h2>
+          <hr class="card-custom-divider">
           <p>Nickname: ${e.nickname}</p>
           <p>Age: ${e.age}</p>
           <p>Race: ${e.race}</p>
           <p>Description: ${e.description}</p>
+          <p>Index: ${t}</p>
+          <button id="edit-button" class="form-button" data-index="${t}">Edit</button> <button id="delete-button" class="form-button" data-index="${t}">Delete</button>
           </section>
-        `).join(``);break}}function f(){e.innerHTML=`
+        `).join(``);break}document.querySelector(`.form-button`).addEventListener(`click`,()=>{document.querySelectorAll(`.form-button`).forEach(e=>{e.addEventListener(`click`,()=>{console.log(`Look the button says the ID is `+e.dataset.index)})})})}function f(){e.innerHTML=`
     <main class="app-shell">
     ${i()}
     <br>
