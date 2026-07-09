@@ -36,6 +36,16 @@ h1 {
   justify-content: center;
 }
 
+.character-card {
+  margin-top: 16px;
+  padding: 15px;
+  max-width: 400px;
+  border: 1px solid #33333d;
+  border-radius: 14px;
+  background: #202025;
+  justify-content: center;
+}
+
 button {
   padding: 10px 14px;
   border: 0;
@@ -51,6 +61,13 @@ button {
   padding-left: 15px;
   padding-right: 15px;
 }   
+
+.form-button {
+  background: #202025;
+  color: white;
+  border: 1px solid #33333d;
+  padding: 10px, 10px;
+}
 
 header {
   color: navy;
@@ -81,4 +98,11 @@ header {
 
   font: inherit;
 
+}
+
+.card-custom-divider {
+  border: none;
+  height: 3px;
+  border-radius: 4px;
+  background-image: linear-gradient(to right, transparent, #333, transparent);
 }

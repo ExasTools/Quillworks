@@ -167,6 +167,8 @@ function lvChar() {
   `
   hookAltHeader()
   document.querySelector("#submit-button").addEventListener('click', () => {
+    
+    
     const charName = document.querySelector("#charName")
     const charNick = document.querySelector("#charNickname")
     const charAge = document.querySelector("#charAge")
@@ -174,11 +176,11 @@ function lvChar() {
     const charDesc = document.querySelector("#charDesc")
 
     const builtCharacter = {
-      name: charName.value,
-      nickname: charNick.value,
-      age: charAge.value,
-      race: charRace.value,
-      description: charDesc.value
+      name: charName.value || "Missing Information",
+      nickname: charNick.value || "Missing Information",
+      age: charAge.value || "Missing Information",
+      race: charRace.value || "Missing Information",
+      description: charDesc.value || "Missing Information"
     }
 
     Characters.push(builtCharacter)
@@ -187,6 +189,7 @@ function lvChar() {
     pushDataToPage(1)
 
   })
+
 }
 
 function pushDataToPage(formID){
@@ -198,18 +201,28 @@ function pushDataToPage(formID){
   switch (formID) {
     case 1:
       document.querySelector('#characters-list').innerHTML = 
-        Characters.map(character => `
+        Characters.map((character, index) => `
           <section class="character-card">
           <h2>Name: ${character.name}</h2>
+          <hr class="card-custom-divider">
           <p>Nickname: ${character.nickname}</p>
           <p>Age: ${character.age}</p>
           <p>Race: ${character.race}</p>
           <p>Description: ${character.description}</p>
+          <p>Index: ${index}</p>
+          <button id="edit-button" class="form-button" data-index="${index}">Edit</button> <button id="delete-button" class="form-button" data-index="${index}">Delete</button>
           </section>
-        `).join('')
+        `).join('') 
     break
-
   }
+  document.querySelector(".form-button").addEventListener('click', () => {
+    const debugValue = document.querySelectorAll(".form-button")
+    debugValue.forEach(button => {
+      button.addEventListener("click", () => {
+        console.log("Look the button says the ID is " + button.dataset.index)
+      })
+    })
+  })
 }
 
 function lvPlaces() {
