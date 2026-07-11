@@ -1,5 +1,5 @@
 # Narritive Editing & Writing Toolkit (NEWT)
-
+[![version](https://img.shields.io/badge/version_0.0.2-green)]
 
 Glad you could make it, NEWT (or Exas Writing Tools) is a lil passion project for my significant other! 
 I've gone ahead and went out of my way to make a Github Pages specifically for the occasion. 
