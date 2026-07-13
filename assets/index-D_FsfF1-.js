@@ -1,4 +1,4 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();function e(e){localStorage.setItem(`characters`,JSON.stringify(e)),console.log(`Saved!`)}function t(){let e=localStorage.getItem(`characters`);return e?JSON.parse(e):[]}var n=document.querySelector(`#app`),r=`0.0.3`,i=t(),a=null;function o(){n.innerHTML=`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();function e(e){localStorage.setItem(`characters`,JSON.stringify(e)),console.log(`Saved!`)}function t(){let e=localStorage.getItem(`characters`);return e?JSON.parse(e):[]}var n=document.querySelector(`#app`),r=`0.0.4`,i=t(),a=null;function o(){n.innerHTML=`
     <main class="app-shell">
       ${s()}
       
@@ -10,7 +10,7 @@
     </main>
     
     `,d()}function s(){return`
-    <h1> Exa's Writing Tools </h1>
+    <h1> Exa's Writing Tools (Quillworks) </h1>
     <section class="header-section">
       <button id="home-button" class="nav-button">Home</button>
       <button id="vault-button" class="nav-button">Lore Vault</button>
@@ -41,7 +41,7 @@
         <button class="nav-button">Placeholder</button>
       </section>
   `}function u(){return`
-    <section class="footer-card"><p>Exa's Writing Tools build-${r}</p></section>
+    <section class="footer-card"><p>Exa's Writing Tools (Quillworks) build-${r}</p></section>
   `}function d(){document.querySelector(`#home-button`).addEventListener(`click`,o),document.querySelector(`#vault-button`).addEventListener(`click`,m),document.querySelector(`#writing-button`).addEventListener(`click`,g),document.querySelector(`#settings-button`).addEventListener(`click`,_),document.querySelector(`#time-button`).addEventListener(`click`,C),document.querySelector(`#devlog-button`).addEventListener(`click`,h)}function f(){document.querySelector(`#home-button`).addEventListener(`click`,o),document.querySelector(`#char-button`).addEventListener(`click`,v),document.querySelector(`#locs-button`).addEventListener(`click`,b),document.querySelector(`#events-button`).addEventListener(`click`,x),document.querySelector(`#tags-button`).addEventListener(`click`,S),document.querySelector(`#religion-button`).addEventListener(`click`,w),document.querySelector(`#gods-button`).addEventListener(`click`,T),document.querySelector(`#nations-button`).addEventListener(`click`,E),document.querySelector(`#factions-button`).addEventListener(`click`,D)}function p(){document.querySelector(`#home-button`).addEventListener(`click`,o)}function m(){n.innerHTML=`
     <main class="app-shell">
       ${c()}
@@ -181,6 +181,7 @@
       <p>That said... I couldn't tell you when I'll get around to it.</p>
       <p>Check back sometime after I finish more of the Lore Vault </p>
     </section>
+    ${u()}
   `,p()}function w(){n.innerHTML=`
     <main class="app-shell">
     ${c()}
