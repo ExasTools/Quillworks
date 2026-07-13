@@ -1,9 +1,9 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();function e(e){localStorage.setItem(`characters`,JSON.stringify(e)),console.log(`Saved!`)}function t(){let e=localStorage.getItem(`characters`);return e?JSON.parse(e):[]}var n=document.querySelector(`#app`),r=`0.0.2`,i=t(),a=null;function o(){n.innerHTML=`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();function e(e){localStorage.setItem(`characters`,JSON.stringify(e)),console.log(`Saved!`)}function t(){let e=localStorage.getItem(`characters`);return e?JSON.parse(e):[]}var n=document.querySelector(`#app`),r=`0.0.3`,i=t(),a=null;function o(){n.innerHTML=`
     <main class="app-shell">
       ${s()}
       
       <section class="tool-card">
-        <p> Currently, the only features available is a very rudamentary character input screen. More to come... </p>
+        <p> Finished the bones and skin of the Character input... moving along. </p>
         <p> That said, to those that read this- thank you for checking out what I'm working on! I really appreciate it more than I can convey through text </p>
       </section>
       ${u()}
@@ -59,6 +59,13 @@
     <section class="tool-card">
       <p><strong>Development Log</strong></p>
       
+      <section class="tool-card">
+        <p><strong>build-0.0.3</strong></p>
+        <p>• Added a confirmation dialogue upon deletion of a character</p>
+        <p>• Added an empty state message for <code>Characters</code> page</p>
+        <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
+      </section>
+
       <section class="tool-card">
         <p><strong>build-0.0.2</strong></p>
         <p>• Fully removed the deprecated <code>charSubmit()</code></p>
@@ -125,9 +132,12 @@
     </section>
 
     <section class="tool-card" id="characters-list"></section>
-
     ${u()}
-  `,i.length!==0&&(y(1),console.log(`Data is being pushed`)),f(),document.querySelector(`#submit-button`).addEventListener(`click`,()=>{let t=document.querySelector(`#charName`),n=document.querySelector(`#charNickname`),r=document.querySelector(`#charAge`),o=document.querySelector(`#charRace`),s=document.querySelector(`#charDesc`),c={name:t.value||`Missing Information`,nickname:n.value||`Missing Information`,age:r.value||`Missing Information`,race:o.value||`Missing Information`,description:s.value||`Missing Information`},l;a===null?(i.push(c),l=i.length-1):(l=a,i[a]=c,a=null),e(i),y(1),document.querySelector(`#character-card-${l}`).scrollIntoView({behavior:`smooth`,block:`center`})})}function y(t){if(!Number.isInteger(t)){console.error(`formID must be an integer`);return}switch(t){case 1:document.querySelector(`#characters-list`).innerHTML=i.map((e,t)=>`
+    <center><code>characters_page_v1</code></center>
+  `,i.length===0?document.querySelector(`#characters-list`).innerHTML=`
+      <p> An empty table sits in an empty room. Time to get this party started!</p>
+      <p> Add some people! </p>
+    `:(y(1),console.log(`Data is being pushed`)),f(),document.querySelector(`#submit-button`).addEventListener(`click`,()=>{let t=document.querySelector(`#charName`),n=document.querySelector(`#charNickname`),r=document.querySelector(`#charAge`),o=document.querySelector(`#charRace`),s=document.querySelector(`#charDesc`),c={name:t.value||`Missing Information`,nickname:n.value||`Missing Information`,age:r.value||`Missing Information`,race:o.value||`Missing Information`,description:s.value||`Missing Information`},l;a===null?(i.push(c),l=i.length-1):(l=a,i[a]=c,a=null),e(i),y(1),document.querySelector(`#character-card-${l}`).scrollIntoView({behavior:`smooth`,block:`center`})})}function y(t){if(!Number.isInteger(t)){console.error(`formID must be an integer`);return}switch(t){case 1:document.querySelector(`#characters-list`).innerHTML=i.map((e,t)=>`
           <section class="character-card" id="character-card-${t}">
           <h2>Name: ${e.name}</h2>
           <hr class="card-custom-divider">
@@ -138,7 +148,10 @@
           <p>Index: ${t}</p>
           <button class="form-button edit-button" data-index="${t}">Edit</button> <button class="form-button delete-button" data-index="${t}">Delete</button>
           </section>
-        `).join(``);break}document.querySelectorAll(`.edit-button`).forEach(e=>{e.addEventListener(`click`,()=>{let t=Number(e.dataset.index),n=i[t];document.querySelector(`#charName`).value=n.name||`Missing Information`,document.querySelector(`#charNickname`).value=n.nickname||`Missing Information`,document.querySelector(`#charAge`).value=n.age||`Missing Information`,document.querySelector(`#charRace`).value=n.race||`Missing Information`,document.querySelector(`#charDesc`).value=n.description||`Missing Information`,a=t,window.scrollTo({top:0,behavior:`smooth`})})}),document.querySelectorAll(`.delete-button`).forEach(t=>{t.addEventListener(`click`,()=>{let n=Number(t.dataset.index);i.splice(n,1),e(i),y(1)})})}function b(){n.innerHTML=`
+        `).join(``);break}document.querySelectorAll(`.edit-button`).forEach(e=>{e.addEventListener(`click`,()=>{let t=Number(e.dataset.index),n=i[t];document.querySelector(`#charName`).value=n.name||`Missing Information`,document.querySelector(`#charNickname`).value=n.nickname||`Missing Information`,document.querySelector(`#charAge`).value=n.age||`Missing Information`,document.querySelector(`#charRace`).value=n.race||`Missing Information`,document.querySelector(`#charDesc`).value=n.description||`Missing Information`,a=t,window.scrollTo({top:0,behavior:`smooth`})})}),document.querySelectorAll(`.delete-button`).forEach(t=>{t.addEventListener(`click`,()=>{let n=Number(t.dataset.index);confirm(`Delete "${i[n].name}"?`)&&(i.splice(n,1),e(i),y(1),i.length===0&&(document.querySelector(`#characters-list`).innerHTML=`
+          <p> An empty table sits in an empty room. Time to get this party started!</p>
+          <p> Add some people! </p>
+        `))})})}function b(){n.innerHTML=`
     <main class="app-shell">
     ${c()}
     <br>
