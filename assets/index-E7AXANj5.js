@@ -203,12 +203,12 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
       <p> Add some people! </p>
     `:($(1),console.log(`Data is being pushed`)),Q(),document.querySelector(`#submit-button`).addEventListener(`click`,()=>{let t=document.querySelector(`#charName`),n=document.querySelector(`#charNickname`),r=document.querySelector(`#charAge`),i=document.querySelector(`#charRace`),a=document.querySelector(`#charDesc`),o={name:t.value||`Missing Information`,nickname:n.value||`Missing Information`,age:r.value||`Missing Information`,race:i.value||`Missing Information`,description:a.value||`Missing Information`},s;K===null?(G.push(o),s=G.length-1):(s=K,G[K]=o,K=null),e(G),$(1),document.querySelector(`#character-card-${s}`).scrollIntoView({behavior:`smooth`,block:`center`})})}function $(t){if(!Number.isInteger(t)){console.error(`formID must be an integer`);return}switch(t){case 1:document.querySelector(`#characters-list`).innerHTML=G.map((e,t)=>`
           <section class="character-card" id="character-card-${t}">
-          <h2>Name: ${U.Parser(e.name)}</h2>
+          <h2>Name: ${U.parse(e.name)}</h2>
           <hr class="card-custom-divider">
-          <p>Nickname: ${U.Parser(e.nickname)}</p>
-          <p>Age: ${U.Parser(e.age)}</p>
-          <p>Race: ${U.Parser(e.race)}</p>
-          <p>Description: ${U.Parser(e.description)}</p>
+          <p>Nickname: ${U.parse(e.nickname)}</p>
+          <p>Age: ${U.parse(e.age)}</p>
+          <p>Race: ${U.parse(e.race)}</p>
+          <p>Description: ${U.parse(e.description)}</p>
           <p>Index: ${t}</p>
           <button class="form-button edit-button" data-index="${t}">Edit</button> <button class="form-button delete-button" data-index="${t}">Delete</button>
           </section>
