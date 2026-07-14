@@ -1,4 +1,4 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();function e(e){localStorage.setItem(`characters`,JSON.stringify(e)),console.log(`Saved!`)}function t(){let e=localStorage.getItem(`characters`);return e?JSON.parse(e):[]}var n=document.querySelector(`#app`),r=`0.0.4`,i=t(),a=null;function o(){n.innerHTML=`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();function e(e){localStorage.setItem(`characters`,JSON.stringify(e)),console.log(`Saved!`)}function t(){let e=localStorage.getItem(`characters`);return e?JSON.parse(e):[]}var n=document.querySelector(`#app`),r=`0.1.0`,i=t(),a=null;function o(){n.innerHTML=`
     <main class="app-shell">
       ${s()}
       
@@ -60,7 +60,8 @@
       <p><strong>Development Log</strong></p>
       
       <section class="tool-card">
-        <p><strong>build-0.0.3</strong></p>
+        <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
+        <3>• Settled on "Quillworks" as the final project name
         <p>• Added a confirmation dialogue upon deletion of a character</p>
         <p>• Added an empty state message for <code>Characters</code> page</p>
         <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
