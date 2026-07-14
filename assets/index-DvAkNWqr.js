@@ -208,7 +208,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
           <div>Nickname: ${U.parseInline(e.nickname)}</div>
           <div>Age: ${U.parseInline(e.age)}</div>
           <div>Race: ${U.parseInline(e.race)}</div>
-          <div>Description: ${U.Parser(e.description)}</div>
+          <div>Description: ${U.parse(e.description)}</div>
           <div>Index: ${t}</div>
           <button class="form-button edit-button" data-index="${t}">Edit</button> <button class="form-button delete-button" data-index="${t}">Delete</button>
           </section>
