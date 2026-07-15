@@ -128,7 +128,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
         <p>• Added a confirmation dialogue upon deletion of a character</p>
         <p>• Added an empty state message for <code>Characters</code> page</p>
         <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
-      </section>
+        <p>• Added <code>Markdown</code> support. I have extra modules but none are implemented outside of the basic version.
+        </section>
 
       <section class="tool-card">
         <p><strong>build-0.0.2</strong></p>
@@ -220,7 +221,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
     ${Y()}
     <br>
     <section class="tool-card">
-      <p>Places page</p>
+      <p></p>
     </section>
   `,Q()}function tt(){W.innerHTML=`
     <main class="app-shell">
