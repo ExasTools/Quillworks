@@ -5,6 +5,7 @@ import { marked } from 'marked'
 const app = document.querySelector('#app')
 const ver = "0.1.0"
 
+
 // Define arrays (empty drawer)
 let Characters = loadCharacters()
 let editCharIndex = null
@@ -138,7 +139,8 @@ function devLog() {
         <p>• Added a confirmation dialogue upon deletion of a character</p>
         <p>• Added an empty state message for <code>Characters</code> page</p>
         <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
-      </section>
+        <p>• Added <code>Markdown</code> support. I have extra modules but none are implemented outside of the basic version.
+        </section>
 
       <section class="tool-card">
         <p><strong>build-0.0.2</strong></p>
@@ -344,7 +346,7 @@ function lvPlaces() {
     ${displayLoreHeader()}
     <br>
     <section class="tool-card">
-      <p>Places page</p>
+      <p></p>
     </section>
   `
   hookAltHeader()
