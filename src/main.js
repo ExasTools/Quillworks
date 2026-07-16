@@ -1,5 +1,6 @@
 import './style.css'
-import { saveCharacters, loadCharacters } from './characterStorage.js'
+import { saveCharacters, loadCharacters } from './modules/characterStorage.js'
+import { displayHeader, displayLoreHeader, displayTimeHeader, displayWBHeader } from './modules/headers.js'
 import { marked } from 'marked'
 
 const app = document.querySelector('#app')
@@ -32,48 +33,7 @@ function showHome() {
 
 // felt like the header should go here to keep it out of the way for the main code
 
-function displayHeader() {
-  return `
-    <h1> Exa's Writing Tools (Quillworks) </h1>
-    <section class="header-section">
-      <button id="home-button" class="nav-button">Home</button>
-      <button id="vault-button" class="nav-button">Lore Vault</button>
-      <button id="time-button" class="nav-button">Timeline</button>
-      <button id="writing-button" class="nav-button">Writing Desk</button>
-      <button id="settings-button" class="nav-button">Settings</button>
-      <button id="devlog-button" class="nav-button">Dev Log</button>
-    </section>
-  `
-}
 
-function displayLoreHeader() {
-  return `
-    <h1> The Lore Vault </h1>
-      <section class="header-section">
-        <button id="home-button" class="nav-button">Home</button>
-        <button id="char-button" class="nav-button">Characters</button>
-        <button id="locs-button" class="nav-button">Places</button>
-        <button id="events-button" class="nav-button">Events</button>
-        <button id="tags-button" class="nav-button">Tags</button>
-        <button id="religion-button" class="nav-button">Religions</button>
-        <button id="gods-button" class="nav-button">Gods/Higher Powers</button>
-        <button id="nations-button" class="nav-button">Nations</button>
-        <button id="factions-button" class="nav-button">Factions</button>
-      </section>
-  `
-}
-
-function displayTimeHeader() {
-  return `
-    <h1> The Timeline </h1>
-      <section class="header-section">
-        <button id="home-button" class="nav-button">Home</button>
-        <button class="nav-button">Placeholder</button>
-        <button class="nav-button">Placeholder</button>
-        <button class="nav-button">Placeholder</button>
-      </section>
-  `
-}
 
 function displayFooter() {
   return `
@@ -88,20 +48,16 @@ function hookHeaderButtons() {
   document.querySelector('#vault-button').addEventListener('click', showLoreVault)
   document.querySelector('#writing-button').addEventListener('click', showWritingDesk)
   document.querySelector('#settings-button').addEventListener('click', showSettings)
-  document.querySelector("#time-button").addEventListener('click', lvTimeline)
+  document.querySelector("#time-button").addEventListener('click', Timeline)
   document.querySelector("#devlog-button").addEventListener('click', devLog)
 }
 
 function hookAltHeader() { // I decided against resusing hookHeaderButtons()
   document.querySelector("#home-button").addEventListener('click', showHome)
   document.querySelector("#char-button").addEventListener('click', lvChar)
-  document.querySelector("#locs-button").addEventListener('click', lvPlaces)
-  document.querySelector("#events-button").addEventListener('click', lvEvents)
+  document.querySelector("#wb-button").addEventListener('click', showWB)
+  document.querySelector("#event-button").addEventListener('click', lvEvents)
   document.querySelector("#tags-button").addEventListener('click', lvTags)
-  document.querySelector("#religion-button").addEventListener('click', lvReligion)
-  document.querySelector("#gods-button").addEventListener('click', lvGods)
-  document.querySelector("#nations-button").addEventListener('click', lvNations)
-  document.querySelector("#factions-button").addEventListener('click', lvFactions)  
 }
 
 function hookTimeHeader() {
@@ -109,6 +65,14 @@ function hookTimeHeader() {
   // TODO: Add more when I get to this :)
 }
 
+function hookWBHeader() {
+    document.querySelector("#vault-button").addEventListener('click', showLoreVault)
+    document.querySelector("#locs-button").addEventListener('click', showLoreVault)
+    document.querySelector("#nations-button").addEventListener('click', wbNations)
+    document.querySelector("#factions-button").addEventListener('click', wbFactions)
+    document.querySelector("#religion-button").addEventListener('click', wbReligion)
+    document.querySelector("#gods-button").addEventListener('click', wbGods)
+}
 
 function showLoreVault() {
   app.innerHTML = `
@@ -177,9 +141,12 @@ function showWritingDesk() {
   app.innerHTML = `
     <main class="app-shell">
       ${displayHeader()}
-      <h1>Writing Desk</h1>
-      <p class="subtitle">Unavailable at this stage, but I promise it'll be soon!</p>
-    ${displayFooter()}
+      <section class="tool-card">
+        <h1>Writing Desk</h1>
+        <br>
+        <p class="subtitle">Unavailable at this stage, but I promise it'll be soon!</p>
+      </section>
+      ${displayFooter()}
     </main>
   `
 
@@ -190,17 +157,78 @@ function showSettings() {
   app.innerHTML = `
     <main class="app-shell">
       ${displayHeader()}
-      <br>
-      <h1> Settings Page </h1>
-      <p class="subtitle">Unavailable at this stage, will be made later on. </p>
-    ${displayFooter()}
+      <section class="tool-card">
+        <h1> Settings Page </h1>
+        <br>
+        <p class="subtitle">Unavailable at this stage, will be made later on. </p>
+      </section>
+      ${displayFooter()}
     </main>
   `
   hookHeaderButtons()
 }
 
-// Lore Vault!
+function pushDataToPage(formID){
+  if (!Number.isInteger(formID)) {
+    console.error("formID must be an integer")
+    return
+  }
 
+  switch (formID) {
+    
+    case 1:
+      document.querySelector('#characters-list').innerHTML = 
+        Characters.map((character, index) => `
+          <section class="character-card" id="character-card-${index}">
+          <h2>Name: ${marked.parseInline(character.name)}</h2>
+          <hr class="card-custom-divider">
+          <div>Nickname: ${marked.parseInline(character.nickname)}</div>
+          <div>Age: ${marked.parseInline(character.age)}</div>
+          <div>Race: ${marked.parseInline(character.race)}</div>
+          <div>Description: ${marked.parse(character.description)}</div>
+          <div>Index: ${index}</div>
+          <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
+          </section>
+        `).join('') 
+    break
+  }
+  document.querySelectorAll(".edit-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+      const character = Characters[index]
+
+      document.querySelector("#charName").value = character.name || "Missing Information"
+      document.querySelector("#charNickname").value = character.nickname || "Missing Information"
+      document.querySelector("#charAge").value = character.age || "Missing Information"
+      document.querySelector("#charRace").value = character.race || "Missing Information"
+      document.querySelector("#charDesc").value = character.description || "Missing Information"
+
+      editCharIndex = index
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    })
+  })
+  document.querySelectorAll(".delete-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+      // are you sure?
+      if (!confirm(`Delete "${Characters[index].name}"?`)) return
+      // alright then
+      
+      Characters.splice(index, 1)
+      saveCharacters(Characters)
+      pushDataToPage(1)
+      if (Characters.length === 0) {
+        document.querySelector('#characters-list').innerHTML = `
+          <p> An empty table sits in an empty room. Time to get this party started!</p>
+          <p> Add some people! </p>
+        `
+      }
+    })
+  })
+}
 function lvChar() {
   app.innerHTML = `
     <main class="app-shell">
@@ -278,78 +306,18 @@ function lvChar() {
 
 }
 
-function pushDataToPage(formID){
-  if (!Number.isInteger(formID)) {
-    console.error("formID must be an integer")
-    return
-  }
-
-  switch (formID) {
-    
-    case 1:
-      document.querySelector('#characters-list').innerHTML = 
-        Characters.map((character, index) => `
-          <section class="character-card" id="character-card-${index}">
-          <h2>Name: ${marked.parseInline(character.name)}</h2>
-          <hr class="card-custom-divider">
-          <div>Nickname: ${marked.parseInline(character.nickname)}</div>
-          <div>Age: ${marked.parseInline(character.age)}</div>
-          <div>Race: ${marked.parseInline(character.race)}</div>
-          <div>Description: ${marked.parse(character.description)}</div>
-          <div>Index: ${index}</div>
-          <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
-          </section>
-        `).join('') 
-    break
-  }
-  document.querySelectorAll(".edit-button").forEach(button => {
-    button.addEventListener("click", () => {
-      const index = Number(button.dataset.index)
-      const character = Characters[index]
-
-      document.querySelector("#charName").value = character.name || "Missing Information"
-      document.querySelector("#charNickname").value = character.nickname || "Missing Information"
-      document.querySelector("#charAge").value = character.age || "Missing Information"
-      document.querySelector("#charRace").value = character.race || "Missing Information"
-      document.querySelector("#charDesc").value = character.description || "Missing Information"
-
-      editCharIndex = index
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      })
-    })
-  })
-  document.querySelectorAll(".delete-button").forEach(button => {
-    button.addEventListener("click", () => {
-      const index = Number(button.dataset.index)
-      // are you sure?
-      if (!confirm(`Delete "${Characters[index].name}"?`)) return
-      // alright then
-      
-      Characters.splice(index, 1)
-      saveCharacters(Characters)
-      pushDataToPage(1)
-      if (Characters.length === 0) {
-        document.querySelector('#characters-list').innerHTML = `
-          <p> An empty table sits in an empty room. Time to get this party started!</p>
-          <p> Add some people! </p>
-        `
-      }
-    })
-  })
-}
-
-function lvPlaces() {
+function showWB() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
-    <br>
-    <section class="tool-card">
-      <p></p>
-    </section>
+      ${displayWBHeader()}
+      <br>
+      <section class="tool-card">
+        <p class="subtitle">Welcome to the World Building drawer. You can access its different modes up top.</p>
+      </section>
+      ${displayFooter()}
+    </main>
   `
-  hookAltHeader()
+  hookWBHeader()
 }
 
 function lvEvents() {
@@ -364,6 +332,7 @@ function lvEvents() {
   hookAltHeader()
 }
 
+//#
 function lvTags() {
   app.innerHTML = `
     <main class="app-shell">
@@ -376,7 +345,7 @@ function lvTags() {
   hookAltHeader()
 }
 
-function lvTimeline() {
+function Timeline() {
   app.innerHTML = `
     <main class="app-shell">
     ${displayTimeHeader()}
@@ -391,7 +360,19 @@ function lvTimeline() {
   hookTimeHeader()
 }
 
-function lvReligion() {
+function wbPlaces() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayLoreHeader()}
+    <br>
+    <section class="tool-card">
+      <p></p>
+    </section>
+  `
+  hookAltHeader()
+}
+
+function wbReligion() {
   app.innerHTML = `
     <main class="app-shell">
     ${displayLoreHeader()}
@@ -403,7 +384,7 @@ function lvReligion() {
   hookAltHeader()
 }
 
-function lvGods() {
+function wbGods() {
   app.innerHTML = `
     <main class="app-shell">
     ${displayLoreHeader()}
@@ -415,7 +396,7 @@ function lvGods() {
   hookAltHeader()
 }
 
-function lvNations() {
+function wbNations() {
   app.innerHTML = `
     <main class="app-shell">
     ${displayLoreHeader()}
@@ -427,7 +408,7 @@ function lvNations() {
   hookAltHeader()
 }
 
-function lvFactions() {
+function wbFactions() {
   app.innerHTML = `
     <main class="app-shell">
     ${displayLoreHeader()}
