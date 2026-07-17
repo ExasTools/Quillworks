@@ -98,7 +98,7 @@ ${this.parser.parse(e)}</blockquote>
 ${e}</tr>
 `}tablecell(e){let t=this.parser.parseInline(e.tokens),n=e.header?`th`:`td`;return(e.align?`<${n} align="${e.align}">`:`<${n}>`)+t+`</${n}>
 `}strong({tokens:e}){return`<strong>${this.parser.parseInline(e)}</strong>`}em({tokens:e}){return`<em>${this.parser.parseInline(e)}</em>`}codespan({text:e}){return`<code>${M(e,!0)}</code>`}br(e){return`<br>`}del({tokens:e}){return`<del>${this.parser.parseInline(e)}</del>`}link({href:e,title:t,tokens:n}){let r=this.parser.parseInline(n),i=N(e);if(i===null)return r;e=i;let a=`<a href="`+e+`"`;return t&&(a+=` title="`+M(t)+`"`),a+=`>`+r+`</a>`,a}image({href:e,title:t,text:n,tokens:r}){r&&(n=this.parser.parseInline(r,this.parser.textRenderer));let i=N(e);if(i===null)return M(n);e=i;let a=`<img src="${e}" alt="${M(n)}"`;return t&&(a+=` title="${M(t)}"`),a+=`>`,a}text(e){return`tokens`in e&&e.tokens?this.parser.parseInline(e.tokens):`escaped`in e&&e.escaped?e.text:M(e.text)}},B=class{strong({text:e}){return e}em({text:e}){return e}codespan({text:e}){return e}del({text:e}){return e}html({text:e}){return e}text({text:e}){return e}link({text:e}){return``+e}image({text:e}){return``+e}br(){return``}checkbox({raw:e}){return e}},V=class e{options;renderer;textRenderer;constructor(e){this.options=e||s,this.options.renderer=this.options.renderer||new z,this.renderer=this.options.renderer,this.renderer.options=this.options,this.renderer.parser=this,this.textRenderer=new B}static parse(t,n){return new e(n).parse(t)}static parseInline(t,n){return new e(n).parseInline(t)}parse(e){this.renderer.parser=this;let t=``;for(let n=0;n<e.length;n++){let r=e[n];if(this.options.extensions?.renderers?.[r.type]){let e=r,n=this.options.extensions.renderers[e.type].call({parser:this},e);if(n!==!1||![`space`,`hr`,`heading`,`code`,`table`,`blockquote`,`list`,`html`,`def`,`paragraph`,`text`].includes(e.type)){t+=n||``;continue}}let i=r;switch(i.type){case`space`:t+=this.renderer.space(i);break;case`hr`:t+=this.renderer.hr(i);break;case`heading`:t+=this.renderer.heading(i);break;case`code`:t+=this.renderer.code(i);break;case`table`:t+=this.renderer.table(i);break;case`blockquote`:t+=this.renderer.blockquote(i);break;case`list`:t+=this.renderer.list(i);break;case`checkbox`:t+=this.renderer.checkbox(i);break;case`html`:t+=this.renderer.html(i);break;case`def`:t+=this.renderer.def(i);break;case`paragraph`:t+=this.renderer.paragraph(i);break;case`text`:t+=this.renderer.text(i);break;default:{let e=`Token with "`+i.type+`" type was not found.`;if(this.options.silent)return console.error(e),``;throw Error(e)}}}return t}parseInline(e,t=this.renderer){this.renderer.parser=this;let n=``;for(let r=0;r<e.length;r++){let i=e[r];if(this.options.extensions?.renderers?.[i.type]){let e=this.options.extensions.renderers[i.type].call({parser:this},i);if(e!==!1||![`escape`,`html`,`link`,`image`,`strong`,`em`,`codespan`,`br`,`del`,`text`].includes(i.type)){n+=e||``;continue}}let a=i;switch(a.type){case`escape`:n+=t.text(a);break;case`html`:n+=t.html(a);break;case`link`:n+=t.link(a);break;case`image`:n+=t.image(a);break;case`checkbox`:n+=t.checkbox(a);break;case`strong`:n+=t.strong(a);break;case`em`:n+=t.em(a);break;case`codespan`:n+=t.codespan(a);break;case`br`:n+=t.br(a);break;case`del`:n+=t.del(a);break;case`text`:n+=t.text(a);break;default:{let e=`Token with "`+a.type+`" type was not found.`;if(this.options.silent)return console.error(e),``;throw Error(e)}}}return n}},H=class{options;block;constructor(e){this.options=e||s}static passThroughHooks=new Set([`preprocess`,`postprocess`,`processAllTokens`,`emStrongMask`]);static passThroughHooksRespectAsync=new Set([`preprocess`,`postprocess`,`processAllTokens`]);preprocess(e){return e}postprocess(e){return e}processAllTokens(e){return e}emStrongMask(e){return e}provideLexer(e=this.block){return e?R.lex:R.lexInline}provideParser(e=this.block){return e?V.parse:V.parseInline}},U=new class{defaults=o();options=this.setOptions;parse=this.parseMarkdown(!0);parseInline=this.parseMarkdown(!1);Parser=V;Renderer=z;TextRenderer=B;Lexer=R;Tokenizer=L;Hooks=H;constructor(...e){this.use(...e)}walkTokens(e,t){let n=[];for(let r of e)switch(n=n.concat(t.call(this,r)),r.type){case`table`:{let e=r;for(let r of e.header)n=n.concat(this.walkTokens(r.tokens,t));for(let r of e.rows)for(let e of r)n=n.concat(this.walkTokens(e.tokens,t));break}case`list`:{let e=r;n=n.concat(this.walkTokens(e.items,t));break}default:{let e=r;this.defaults.extensions?.childTokens?.[e.type]?this.defaults.extensions.childTokens[e.type].forEach(r=>{let i=e[r].flat(1/0);n=n.concat(this.walkTokens(i,t))}):e.tokens&&(n=n.concat(this.walkTokens(e.tokens,t)))}}return n}use(...e){let t=this.defaults.extensions||{renderers:{},childTokens:{}};return e.forEach(e=>{let n={...e};if(n.async=this.defaults.async||n.async||!1,e.extensions&&(e.extensions.forEach(e=>{if(!e.name)throw Error(`extension name required`);if(`renderer`in e){let n=t.renderers[e.name];n?t.renderers[e.name]=function(...t){let r=e.renderer.apply(this,t);return r===!1&&(r=n.apply(this,t)),r}:t.renderers[e.name]=e.renderer}if(`tokenizer`in e){if(!e.level||e.level!==`block`&&e.level!==`inline`)throw Error(`extension level must be 'block' or 'inline'`);let n=t[e.level];n?n.unshift(e.tokenizer):t[e.level]=[e.tokenizer],e.start&&(e.level===`block`?t.startBlock?t.startBlock.push(e.start):t.startBlock=[e.start]:e.level===`inline`&&(t.startInline?t.startInline.push(e.start):t.startInline=[e.start]))}`childTokens`in e&&e.childTokens&&(t.childTokens[e.name]=e.childTokens)}),n.extensions=t),e.renderer){let t=this.defaults.renderer||new z(this.defaults);for(let n in e.renderer){if(!(n in t))throw Error(`renderer '${n}' does not exist`);if([`options`,`parser`].includes(n))continue;let r=n,i=e.renderer[r],a=t[r];t[r]=(...e)=>{let n=i.apply(t,e);return n===!1&&(n=a.apply(t,e)),n||``}}n.renderer=t}if(e.tokenizer){let t=this.defaults.tokenizer||new L(this.defaults);for(let n in e.tokenizer){if(!(n in t))throw Error(`tokenizer '${n}' does not exist`);if([`options`,`rules`,`lexer`].includes(n))continue;let r=n,i=e.tokenizer[r],a=t[r];t[r]=(...e)=>{let n=i.apply(t,e);return n===!1&&(n=a.apply(t,e)),n}}n.tokenizer=t}if(e.hooks){let t=this.defaults.hooks||new H;for(let n in e.hooks){if(!(n in t))throw Error(`hook '${n}' does not exist`);if([`options`,`block`].includes(n))continue;let r=n,i=e.hooks[r],a=t[r];H.passThroughHooks.has(n)?t[r]=e=>{if(this.defaults.async&&H.passThroughHooksRespectAsync.has(n))return(async()=>{let n=await i.call(t,e);return a.call(t,n)})();let r=i.call(t,e);return a.call(t,r)}:t[r]=(...e)=>{if(this.defaults.async)return(async()=>{let n=await i.apply(t,e);return n===!1&&(n=await a.apply(t,e)),n})();let n=i.apply(t,e);return n===!1&&(n=a.apply(t,e)),n}}n.hooks=t}if(e.walkTokens){let t=this.defaults.walkTokens,r=e.walkTokens;n.walkTokens=function(e){let n=[];return n.push(r.call(this,e)),t&&(n=n.concat(t.call(this,e))),n}}this.defaults={...this.defaults,...n}}),this}setOptions(e){return this.defaults={...this.defaults,...e},this}lexer(e,t){return R.lex(e,t??this.defaults)}parser(e,t){return V.parse(e,t??this.defaults)}parseMarkdown(e){return(t,n)=>{let r={...n},i={...this.defaults,...r},a=this.onError(!!i.silent,!!i.async);if(this.defaults.async===!0&&r.async===!1)return a(Error(`marked(): The async option was set to true by an extension. Remove async: false from the parse options object to return a Promise.`));if(typeof t>`u`||t===null)return a(Error(`marked(): input parameter is undefined or null`));if(typeof t!=`string`)return a(Error(`marked(): input parameter is of type `+Object.prototype.toString.call(t)+`, string expected`));if(i.hooks&&(i.hooks.options=i,i.hooks.block=e),i.async)return(async()=>{let n=i.hooks?await i.hooks.preprocess(t):t,r=await(i.hooks?await i.hooks.provideLexer(e):e?R.lex:R.lexInline)(n,i),a=i.hooks?await i.hooks.processAllTokens(r):r;i.walkTokens&&await Promise.all(this.walkTokens(a,i.walkTokens));let o=await(i.hooks?await i.hooks.provideParser(e):e?V.parse:V.parseInline)(a,i);return i.hooks?await i.hooks.postprocess(o):o})().catch(a);try{i.hooks&&(t=i.hooks.preprocess(t));let n=(i.hooks?i.hooks.provideLexer(e):e?R.lex:R.lexInline)(t,i);i.hooks&&(n=i.hooks.processAllTokens(n)),i.walkTokens&&this.walkTokens(n,i.walkTokens);let r=(i.hooks?i.hooks.provideParser(e):e?V.parse:V.parseInline)(n,i);return i.hooks&&(r=i.hooks.postprocess(r)),r}catch(e){return a(e)}}}onError(e,t){return n=>{if(n.message+=`
-Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error occurred:</p><pre>`+M(n.message+``,!0)+`</pre>`;return t?Promise.resolve(e):e}if(t)return Promise.reject(n);throw n}}};function W(e,t){return U.parse(e,t)}W.options=W.setOptions=function(e){return U.setOptions(e),W.defaults=U.defaults,c(W.defaults),W},W.getDefaults=o,W.defaults=s,W.use=function(...e){return U.use(...e),W.defaults=U.defaults,c(W.defaults),W},W.walkTokens=function(e,t){return U.walkTokens(e,t)},W.parseInline=U.parseInline,W.Parser=V,W.parser=V.parse,W.Renderer=z,W.TextRenderer=B,W.Lexer=R,W.lexer=R.lex,W.Tokenizer=L,W.Hooks=H,W.parse=W,W.options,W.setOptions,W.use,W.walkTokens,W.parseInline,V.parse,R.lex;var G=document.querySelector(`#app`),Ye=`0.1.0`,K=t(),q=null;function J(){G.innerHTML=`
+Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error occurred:</p><pre>`+M(n.message+``,!0)+`</pre>`;return t?Promise.resolve(e):e}if(t)return Promise.reject(n);throw n}}};function W(e,t){return U.parse(e,t)}W.options=W.setOptions=function(e){return U.setOptions(e),W.defaults=U.defaults,c(W.defaults),W},W.getDefaults=o,W.defaults=s,W.use=function(...e){return U.use(...e),W.defaults=U.defaults,c(W.defaults),W},W.walkTokens=function(e,t){return U.walkTokens(e,t)},W.parseInline=U.parseInline,W.Parser=V,W.parser=V.parse,W.Renderer=z,W.TextRenderer=B,W.Lexer=R,W.lexer=R.lex,W.Tokenizer=L,W.Hooks=H,W.parse=W,W.options,W.setOptions,W.use,W.walkTokens,W.parseInline,V.parse,R.lex;var G=document.querySelector(`#app`),Ye=`0.1.1`,K=t(),q=null;function J(){G.innerHTML=`
     <main class="app-shell">
       ${n()}
       
@@ -128,38 +128,46 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
     <section class="tool-card">
       <p><strong>Development Log</strong></p>
       
-      <section class="tool-card">
-        <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
-        <p>• Settled on "Quillworks" as the final project name
-        <p>• Added a confirmation dialogue upon deletion of a character</p>
-        <p>• Added an empty state message for <code>Characters</code> page</p>
-        <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
-        <p>• Added <code>Markdown</code> support. I have extra modules but none are implemented outside of the basic version.
+      <section class="tool-card"> 
+        <section class="tool-card-dlog">
+          <p><strong>build-0.1.1</strong></p>
+          <p>• Added the beginnings of a Settings page with a lil button</p>
+          <p>• Reorganized the Lore Vault Navigation with a dedicated World Building Section</p>
+          <p>• Moved header components into a separate module to clean up <code>main.js</code></p>
+          <p>• Added some customization to certain pages that were lacking it
+          <div class="todo"><strong>TODO:</strong> Remake header to make navigation not completely arse.</div>
+        <section class="tool-card-dlog">
+          <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
+          <p>• Settled on "Quillworks" as the final project name
+          <p>• Added a confirmation dialogue upon deletion of a character</p>
+          <p>• Added an empty state message for <code>Characters</code> page</p>
+          <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
+          <p>• Added <code>Markdown</code> support. I have extra modules but none are implemented outside of the basic version.
         </section>
 
-      <section class="tool-card">
-        <p><strong>build-0.0.2</strong></p>
-        <p>• Fully removed the deprecated <code>charSubmit()</code></p>
-        <p>• Added persistent character storage</p>
-        <p>• Delete Button now deletes characters. No "are you sure?" prompt yet</p>
-        <p>• Edit Button now refills the form and updates the existing character</p>
-        <p>• Editing a character will auto-scroll to the form</p>
-        <p>• Saving or updating a character automagically scrolls to its card</p>
-        <p>• Split character storage functions into <code>characterStorage.js</code></p>
-      </section>
+        <section class="tool-card-dlog">
+          <p><strong>build-0.0.2</strong></p>
+          <p>• Fully removed the deprecated <code>charSubmit()</code></p>
+          <p>• Added persistent character storage</p>
+          <p>• Delete Button now deletes characters. No "are you sure?" prompt yet</p>
+          <p>• Edit Button now refills the form and updates the existing character</p>
+          <p>• Editing a character will auto-scroll to the form</p>
+          <p>• Saving or updating a character automagically scrolls to its card</p>
+          <p>• Split character storage functions into <code>characterStorage.js</code></p>
+        </section>
 
-      <section class="tool-card">
-        <p><strong>build-0.0.1</strong></p>
-        <p>• Put together the basic framework.</p>
-        <p>• Got page navigation working.</p>
-        <p>• Characters can now be created and stored.</p>
-        <p>• Character cards finally look like... well, cards.</p>
-        <p>• Learned map(), index, and why event listeners should behave themselves.</p>
-        <p>• Fixed a performance issue that was entirely my own fault.</p>
-        <p>• Added build information to the footer.</p>
-        <p>• Calling this a solid first milestone.</p>
-        <p>• Oh! And also added a lil devlog page.</p>
-      </section>
+        <section class="tool-card-dlog">
+          <p><strong>build-0.0.1</strong></p>
+          <p>• Put together the basic framework.</p>
+          <p>• Got page navigation working.</p>
+          <p>• Characters can now be created and stored.</p>
+          <p>• Character cards finally look like... well, cards.</p>
+          <p>• Learned map(), index, and why event listeners should behave themselves.</p>
+          <p>• Fixed a performance issue that was entirely my own fault.</p>
+          <p>• Added build information to the footer.</p>
+          <p>• Calling this a solid first milestone.</p>
+          <p>• Oh! And also added a lil devlog page.</p>
+        </section>
 
     </section>
     ${Y()}
@@ -179,8 +187,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
       ${n()}
       <section class="tool-card">
         <h1> Settings Page </h1>
-        <br>
-        <p class="subtitle">Unavailable at this stage, will be made later on. </p>
+        <p class="subtitle">Semi-unavailable. Dummy button! </p>
+        <center><button id="export-backup">Export Quillworks</button></center>
       </section>
       ${Y()}
     </main>
