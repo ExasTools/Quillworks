@@ -36,6 +36,15 @@ h1 {
   justify-content: center;
 }
 
+.tool-card-dlog {
+  margin-top: 12px;
+  padding: 10px;
+  border: 2px solid #42424e;
+  border-radius: 7px;
+  background: #1b1b20;
+  justify-content: center;
+}
+
 .character-card {
   margin-top: 16px;
   padding: 15px;
@@ -123,4 +132,21 @@ code {
   color: #ce9178;
   padding: 0.15rem 0.15rem;
   border-radius: 2px;
+}
+
+.todo {
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+
+  color: #cfe8ff;
+  background-color: #16283a;
+  border-left: rpx solid #58a6ff;
+  border-radius: 0.3rem;
+}
+
+.todo strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #58a6ff;
+  letter-spacing: 0.08rem;
 }

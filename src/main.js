@@ -4,7 +4,7 @@ import { displayHeader, displayLoreHeader, displayTimeHeader, displayWBHeader } 
 import { marked } from 'marked'
 
 const app = document.querySelector('#app')
-const ver = "0.1.0"
+const ver = "0.1.1"
 
 
 // Define arrays (empty drawer)
@@ -97,38 +97,46 @@ function devLog() {
     <section class="tool-card">
       <p><strong>Development Log</strong></p>
       
-      <section class="tool-card">
-        <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
-        <p>• Settled on "Quillworks" as the final project name
-        <p>• Added a confirmation dialogue upon deletion of a character</p>
-        <p>• Added an empty state message for <code>Characters</code> page</p>
-        <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
-        <p>• Added <code>Markdown</code> support. I have extra modules but none are implemented outside of the basic version.
+      <section class="tool-card"> 
+        <section class="tool-card-dlog">
+          <p><strong>build-0.1.1</strong></p>
+          <p>• Added the beginnings of a Settings page with a lil button</p>
+          <p>• Reorganized the Lore Vault Navigation with a dedicated World Building Section</p>
+          <p>• Moved header components into a separate module to clean up <code>main.js</code></p>
+          <p>• Added some customization to certain pages that were lacking it
+          <div class="todo"><strong>TODO:</strong> Remake header to make navigation not completely arse.</div>
+        <section class="tool-card-dlog">
+          <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
+          <p>• Settled on "Quillworks" as the final project name
+          <p>• Added a confirmation dialogue upon deletion of a character</p>
+          <p>• Added an empty state message for <code>Characters</code> page</p>
+          <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
+          <p>• Added <code>Markdown</code> support. I have extra modules but none are implemented outside of the basic version.
         </section>
 
-      <section class="tool-card">
-        <p><strong>build-0.0.2</strong></p>
-        <p>• Fully removed the deprecated <code>charSubmit()</code></p>
-        <p>• Added persistent character storage</p>
-        <p>• Delete Button now deletes characters. No "are you sure?" prompt yet</p>
-        <p>• Edit Button now refills the form and updates the existing character</p>
-        <p>• Editing a character will auto-scroll to the form</p>
-        <p>• Saving or updating a character automagically scrolls to its card</p>
-        <p>• Split character storage functions into <code>characterStorage.js</code></p>
-      </section>
+        <section class="tool-card-dlog">
+          <p><strong>build-0.0.2</strong></p>
+          <p>• Fully removed the deprecated <code>charSubmit()</code></p>
+          <p>• Added persistent character storage</p>
+          <p>• Delete Button now deletes characters. No "are you sure?" prompt yet</p>
+          <p>• Edit Button now refills the form and updates the existing character</p>
+          <p>• Editing a character will auto-scroll to the form</p>
+          <p>• Saving or updating a character automagically scrolls to its card</p>
+          <p>• Split character storage functions into <code>characterStorage.js</code></p>
+        </section>
 
-      <section class="tool-card">
-        <p><strong>build-0.0.1</strong></p>
-        <p>• Put together the basic framework.</p>
-        <p>• Got page navigation working.</p>
-        <p>• Characters can now be created and stored.</p>
-        <p>• Character cards finally look like... well, cards.</p>
-        <p>• Learned map(), index, and why event listeners should behave themselves.</p>
-        <p>• Fixed a performance issue that was entirely my own fault.</p>
-        <p>• Added build information to the footer.</p>
-        <p>• Calling this a solid first milestone.</p>
-        <p>• Oh! And also added a lil devlog page.</p>
-      </section>
+        <section class="tool-card-dlog">
+          <p><strong>build-0.0.1</strong></p>
+          <p>• Put together the basic framework.</p>
+          <p>• Got page navigation working.</p>
+          <p>• Characters can now be created and stored.</p>
+          <p>• Character cards finally look like... well, cards.</p>
+          <p>• Learned map(), index, and why event listeners should behave themselves.</p>
+          <p>• Fixed a performance issue that was entirely my own fault.</p>
+          <p>• Added build information to the footer.</p>
+          <p>• Calling this a solid first milestone.</p>
+          <p>• Oh! And also added a lil devlog page.</p>
+        </section>
 
     </section>
     ${displayFooter()}
@@ -159,8 +167,8 @@ function showSettings() {
       ${displayHeader()}
       <section class="tool-card">
         <h1> Settings Page </h1>
-        <br>
-        <p class="subtitle">Unavailable at this stage, will be made later on. </p>
+        <p class="subtitle">Semi-unavailable. Dummy button! </p>
+        <center><button id="export-backup">Export Quillworks</button></center>
       </section>
       ${displayFooter()}
     </main>

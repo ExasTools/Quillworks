@@ -1,5 +1,5 @@
 # Exas Writing Tools (Quillworks)
-[![version](https://img.shields.io/badge/version_0.1.0-purple)]
+[![version](https://img.shields.io/badge/version_0.1.1-green)]
 
 Glad you could make it, Quillworks (or Exas Writing Tools) is a lil passion project for my significant other! 
 I've gone ahead and went out of my way to make a Github Pages specifically for the occasion. 
