@@ -4,7 +4,7 @@ import { displayHeader, displayLoreHeader, displayTimeHeader, displayWBHeader } 
 import { marked } from 'marked'
 
 const app = document.querySelector('#app')
-const ver = "0.1.1"
+const ver = "0.1.2"
 
 
 // Define arrays (empty drawer)
@@ -29,6 +29,7 @@ function showHome() {
     
     `
   hookHeaderButtons()
+  setActiveButton('home-button')
 }
 
 // felt like the header should go here to keep it out of the way for the main code
@@ -87,6 +88,7 @@ function showLoreVault() {
     </main>
     `
     hookAltHeader()
+    setActiveButton('vault-button')
 }
 
 function devLog() {
@@ -97,7 +99,10 @@ function devLog() {
     <section class="tool-card">
       <p><strong>Development Log</strong></p>
       
-      <section class="tool-card"> 
+      <section class="tool-card">
+        <section class="tool-card-dlog">
+          <p><strong>build-0.1.2</strong></p>
+          <p>• Added logic to headers to set "active" button. Helps navigation
         <section class="tool-card-dlog">
           <p><strong>build-0.1.1</strong></p>
           <p>• Added the beginnings of a Settings page with a lil button</p>
@@ -105,6 +110,7 @@ function devLog() {
           <p>• Moved header components into a separate module to clean up <code>main.js</code></p>
           <p>• Added some customization to certain pages that were lacking it
           <div class="todo"><strong>TODO:</strong> Remake header to make navigation not completely arse.</div>
+        </section>
         <section class="tool-card-dlog">
           <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
           <p>• Settled on "Quillworks" as the final project name
@@ -143,6 +149,7 @@ function devLog() {
     </main>
   `
   hookHeaderButtons()
+  setActiveButton('devlog-button')
 }
 
 function showWritingDesk() {
@@ -159,6 +166,7 @@ function showWritingDesk() {
   `
 
   hookHeaderButtons()
+  setActiveButton('writing-button')
 }
 
 function showSettings() {
@@ -174,6 +182,7 @@ function showSettings() {
     </main>
   `
   hookHeaderButtons()
+  setActiveButton('settings-button')
 }
 
 function pushDataToPage(formID){
@@ -237,6 +246,12 @@ function pushDataToPage(formID){
     })
   })
 }
+
+function setActiveButton(buttonId) {
+  const button = document.getElementById(buttonId)
+  button.classList.add('active')
+}
+
 function lvChar() {
   app.innerHTML = `
     <main class="app-shell">
@@ -275,6 +290,7 @@ function lvChar() {
     `
   }
   hookAltHeader()
+  setActiveButton('char-button')
   document.querySelector("#submit-button").addEventListener('click', () => {
     // Save/Edit Button Listener
     
@@ -326,6 +342,7 @@ function showWB() {
     </main>
   `
   hookWBHeader()
+  setActiveButton('wb-button')
 }
 
 function lvEvents() {
@@ -338,6 +355,7 @@ function lvEvents() {
     </section>
   `
   hookAltHeader()
+  setActiveButton('event-button')
 }
 
 //#
@@ -351,6 +369,7 @@ function lvTags() {
     </section>
   `
   hookAltHeader()
+  setActiveButton('tags-button')
 }
 
 function Timeline() {
@@ -378,6 +397,7 @@ function wbPlaces() {
     </section>
   `
   hookWBHeader()
+  setActiveButton('locs-button')
 }
 
 function wbReligion() {
@@ -390,6 +410,7 @@ function wbReligion() {
     </section>
   `
   hookWBHeader()
+  setActiveButton('religion-button')
 }
 
 function wbGods() {
@@ -402,6 +423,7 @@ function wbGods() {
     </section>
   `
   hookWBHeader()
+  setActiveButton('gods-button')
 }
 
 function wbNations() {
@@ -414,6 +436,7 @@ function wbNations() {
     </section>
   `
   hookWBHeader()
+  setActiveButton('nations-button')
 }
 
 function wbFactions() {
@@ -426,6 +449,7 @@ function wbFactions() {
     </section>
   `
   hookWBHeader()
+  setActiveButton('factions-button')
 }
 
 showHome()

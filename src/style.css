@@ -81,6 +81,10 @@ button {
   padding-right: 15px;
 }   
 
+.nav-button.active{
+  background: darkblue;
+}
+
 .form-button {
   background: #202025;
   color: white;
