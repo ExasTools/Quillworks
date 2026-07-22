@@ -1,5 +1,5 @@
 # Exas Writing Tools (Quillworks)
-[![version](https://img.shields.io/badge/indev_build_0.1.2-green)]
+[![version](https://img.shields.io/badge/indev_build_0.1.2-blue)]
 
 Welcome to the indev branch for 0.1.2
 
