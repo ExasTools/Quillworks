@@ -1,4 +1,3 @@
-import { displayHeader } from '../modules/headers.js'
 
 export function showDevLog({
     app,
@@ -23,7 +22,7 @@ export function showDevLog({
               <p>• Added all the logic needed for Places to exist, also Places page exists. </p>
               <p>• Refactored Character code into its own module, helping my eyes because scrolling sucks </p>
               <p>• Refactored Devlog into its own module too. Ironically it also serves as an example structure for future modules. </p>
-              
+
               <hr class=card-custom-divider>
             <section class="tool-card-dlog">
               <p><strong>build-0.1.1</strong></p>
