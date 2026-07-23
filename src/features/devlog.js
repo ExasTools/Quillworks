@@ -23,6 +23,7 @@ export function showDevLog({
               <p>• Refactored Character code into its own module, helping my eyes because scrolling sucks </p>
               <p>• Refactored Devlog into its own module too. Ironically it also serves as an example structure for future modules. </p>
 
+              <div class="todo"><strong>TODO:</strong> Refactor Places page into its own module so scrolling through the file isn't completely arse.</div>
               <hr class=card-custom-divider>
             <section class="tool-card-dlog">
               <p><strong>build-0.1.1</strong></p>
