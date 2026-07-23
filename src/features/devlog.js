@@ -14,12 +14,12 @@ export function showDevLog({
           <p><strong>Development Log</strong></p>
           
           <section class="tool-card">
-            <section class="tool-card-dlog">
+            <section class="tool-card-dlog"> <!-- Section intentionally left unclosed because I happen to like how the sections look when its stacked like this. -->
               <p><strong>build-0.1.2</strong></p>
-              <p>• Added logic to headers to set "active" button. Helps navigation</p>
+              <p>• Added active-state logic to show the current navigation page.</p>
               <p>• Added back Lore Vault button and extra redundant header buttons to ease navigation.</p>
               <p>• Renamed <code>pushDataToPage()</code> to <code>renderCharacters()</code> and removed abstraction
-              <p>• Added all the logic needed for Places to exist, also Places page exists. </p>
+              <p>• Added persistent Places CRUD with Markdown support.</p>
               <p>• Refactored Character code into its own module, helping my eyes because scrolling sucks </p>
               <p>• Refactored Devlog into its own module too. Ironically it also serves as an example structure for future modules. </p>
 
