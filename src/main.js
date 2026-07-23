@@ -1,5 +1,6 @@
 import './style.css'
 import { saveCharacters, loadCharacters } from './modules/characterStorage.js'
+import { savePlaces, loadPlaces } from './modules/placeStorage.js'
 import { displayHeader, displayLoreHeader, displayTimeHeader, displayWBHeader } from './modules/headers.js'
 import { marked } from 'marked'
 
@@ -11,8 +12,8 @@ const debugging = false // If set to true, the output will be more verbosue.
 // Define arrays (empty drawer)
 let Characters = loadCharacters()
 let editCharIndex = null
-let Locations = []
-let editLocIndex = null
+let Places = loadPlaces()
+let editPlcIndex = null
 // I've refrained from adding ALL the drawers, I get scope creep like a mofo
 
 
@@ -108,6 +109,7 @@ function devLog() {
           <p>• Added logic to headers to set "active" button. Helps navigation</p>
           <p>• Added back Lore Vault button and extra redundant header buttons to ease navigation.</p>
           <p>• Renamed <code>pushDataToPage()</code> to <code>renderCharacters()</code> and removed abstraction
+          <p>• Added all the logic needed for Places to exist, also Places page exists. </p>
           <hr class=card-custom-divider>
         <section class="tool-card-dlog">
           <p><strong>build-0.1.1</strong></p>
@@ -389,12 +391,119 @@ function wbPlaces() {
     <main class="app-shell">
     ${displayWBHeader()}
     <br>
-    <section class="tool-card">
-      <p></p>
+    <section class="tool-card-char-page"> <!-- TODO: Add Place specific CSS -->
+      <label>Place Name</label>
+      <input class="field-input" id="placeName">
+      <br>
+      <label>Place Type</label>
+      <input class="field-input" id="placeType">
+      <br>
+      <label>Place Region</label>
+      <input class="field-input" id="placeRegion">
+      <br>
+      <label>Place Description</label>
+      <textarea class="field-input" id="placeDesc"></textarea>
+      <br><br>
+      <button id="submit-button">Save</button>
     </section>
+
+    <section class="tool-card" id="places-list"></section>
+    ${displayFooter()}
+    <center><code>places_page_v1</code></center>
   `
+  if (Places.length !== 0) {
+    renderPlaces()
+  } else {
+    document.querySelector('#places-list').innerHTML = `
+      <div class="todo">An empty void sits where a world should be. Shall we get to creating?</div>
+    `
+  }
+
   hookWBHeader()
   setActiveButton('locs-button')
+  document.querySelector('#submit-button').addEventListener('click', () => {
+    // Save button listener
+
+    const placeName = document.querySelector("#placeName")
+    const placeType = document.querySelector("#placeType")
+    const placeRegion = document.querySelector("#placeRegion")
+    const placeDesc = document.querySelector("#placeDesc")
+
+    const builtPlace = {
+      pName: placeName.value || "Missing Information",
+      pType: placeType.value || "Missing Information",
+      pRegion: placeRegion.value || "Missing Information",
+      pDesc: placeDesc.value || "Missing Information"
+    }
+    let targetIndex
+
+    if (editPlcIndex === null) {
+      Places.push(builtPlace)
+      targetIndex = Places.length - 1 
+    } else {
+      targetIndex = editPlcIndex
+      Places[editPlcIndex] = builtPlace
+      editPlcIndex = null
+    }
+
+    savePlaces(Places)
+    renderPlaces()
+
+    document.querySelector(`#place-card-${targetIndex}`).scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    })
+  })
+}
+
+function renderPlaces() {
+  document.querySelector('#places-list').innerHTML =
+  Places.map((place, index) => `
+    <section class="place-card" id="place-card-${index}">
+    <h2>Place Name: ${marked.parseInline(place.pName)}</h2>
+    <hr class="card-custom-divider">
+    <div>Place Type: ${marked.parseInline(place.pType)}</div>
+    <div>Place Region: ${marked.parseInline(place.pRegion)}</div>
+    <div>Place Description: ${marked.parse(place.pDesc)}</div>
+    <div>Index: ${index}</div>
+    <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
+    </section>
+  `).join('')
+
+  document.querySelectorAll(".edit-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+      const place = Places[index]
+      
+      document.querySelector("#placeName").value = place.pName || "Missing Information"
+      document.querySelector("#placeType").value = place.pType || "Missing Information"
+      document.querySelector("#placeRegion").value = place.pRegion || "Missing Information"
+      document.querySelector("#placeDesc").value = place.pDesc || "Missing Information"
+
+      editPlcIndex = index
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    })
+  })
+  document.querySelectorAll(".delete-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+      // You sure?
+      if (!confirm(`Delete "${Places[index].pName}"?`)) return
+      // Okie dokie
+
+      Places.splice(index, 1)
+      savePlaces(Places)
+      renderPlaces()
+      if (Places.length === 0) {
+        document.querySelector('#places-list').innerHTML = `
+          <div class="todo"> An empty void sits where a world should be. Shall we get to creating?</div>
+        `
+      }
+    })
+  })
 }
 
 function wbReligion() {
