@@ -5,59 +5,6 @@ import { marked } from 'marked'
 let Characters = loadCharacters()
 let editCharIndex = null
 
-function renderCharacters(){
-    document.querySelector('#characters-list').innerHTML = 
-      Characters.map((character, index) => `
-        <section class="character-card" id="character-card-${index}">
-        <h2>Name: ${marked.parseInline(character.name)}</h2>
-        <hr class="card-custom-divider">
-        <div>Nickname: ${marked.parseInline(character.nickname)}</div>
-        <div>Age: ${marked.parseInline(character.age)}</div>
-        <div>Race: ${marked.parseInline(character.race)}</div>
-        <div>Description: ${marked.parse(character.description)}</div>
-        <div>Index: ${index}</div>
-        <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
-        </section>
-      `).join('') 
-
-  document.querySelectorAll(".edit-button").forEach(button => {
-    button.addEventListener("click", () => {
-      const index = Number(button.dataset.index)
-      const character = Characters[index]
-
-      document.querySelector("#charName").value = character.name || "Missing Information"
-      document.querySelector("#charNickname").value = character.nickname || "Missing Information"
-      document.querySelector("#charAge").value = character.age || "Missing Information"
-      document.querySelector("#charRace").value = character.race || "Missing Information"
-      document.querySelector("#charDesc").value = character.description || "Missing Information"
-
-      editCharIndex = index
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      })
-    })
-  })
-  document.querySelectorAll(".delete-button").forEach(button => {
-    button.addEventListener("click", () => {
-      const index = Number(button.dataset.index)
-      // are you sure?
-      if (!confirm(`Delete "${Characters[index].name}"?`)) return
-      // alright then
-      
-      Characters.splice(index, 1)
-      saveCharacters(Characters)
-      renderCharacters()
-      if (Characters.length === 0) {
-        document.querySelector('#characters-list').innerHTML = `
-          <p> An empty table sits in an empty room. Time to get this party started!</p>
-          <p> Add some people! </p>
-        `
-      }
-    })
-  })
-}
-
 export function showCharacters({
     app,
     displayFooter,
@@ -139,4 +86,57 @@ export function showCharacters({
 
   })
 
+}
+
+function renderCharacters(){
+    document.querySelector('#characters-list').innerHTML = 
+      Characters.map((character, index) => `
+        <section class="character-card" id="character-card-${index}">
+        <h2>Name: ${marked.parseInline(character.name)}</h2>
+        <hr class="card-custom-divider">
+        <div>Nickname: ${marked.parseInline(character.nickname)}</div>
+        <div>Age: ${marked.parseInline(character.age)}</div>
+        <div>Race: ${marked.parseInline(character.race)}</div>
+        <div>Description: ${marked.parse(character.description)}</div>
+        <div>Index: ${index}</div>
+        <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
+        </section>
+      `).join('') 
+
+  document.querySelectorAll(".edit-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+      const character = Characters[index]
+
+      document.querySelector("#charName").value = character.name || "Missing Information"
+      document.querySelector("#charNickname").value = character.nickname || "Missing Information"
+      document.querySelector("#charAge").value = character.age || "Missing Information"
+      document.querySelector("#charRace").value = character.race || "Missing Information"
+      document.querySelector("#charDesc").value = character.description || "Missing Information"
+
+      editCharIndex = index
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    })
+  })
+  document.querySelectorAll(".delete-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+      // are you sure?
+      if (!confirm(`Delete "${Characters[index].name}"?`)) return
+      // alright then
+      
+      Characters.splice(index, 1)
+      saveCharacters(Characters)
+      renderCharacters()
+      if (Characters.length === 0) {
+        document.querySelector('#characters-list').innerHTML = `
+          <p> An empty table sits in an empty room. Time to get this party started!</p>
+          <p> Add some people! </p>
+        `
+      }
+    })
+  })
 }
