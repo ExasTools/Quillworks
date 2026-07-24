@@ -1,7 +1,5 @@
 # Exas Writing Tools (Quillworks)
-[![version](https://img.shields.io/badge/indev_build_0.1.2-blue)]
-
-Welcome to the indev branch for 0.1.2
+![version](https://img.shields.io/badge/build_0.1.2-green)
 
 Glad you could make it, Quillworks (or Exas Writing Tools) is a lil passion project for my significant other! 
 I've gone ahead and went out of my way to make a Github Pages specifically for the occasion. 
