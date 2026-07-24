@@ -34,9 +34,9 @@ export function showCharacters({
       <button id="submit-button">Save</button>
     </section>
 
-    <section class="tool-card" id="characters-list"></section>
+    <section class="tool-card card-grid" id="characters-list"></section>
     ${displayFooter()}
-    <center><code>characters_page_v2</code></center>
+    <center><code>characters_page_v3</code></center>
   `
   if (Characters.length !== 0) {
     renderCharacters()
