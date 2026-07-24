@@ -8,3 +8,9 @@ export function debugStorageSave(key, json) {
 	console.log('JSON writtin:', json)
 	console.groupEnd()
 }
+
+export function initDebugMsg() {
+	if (!debugging) return
+
+	console.log('[Quillworks] Debugging enabled.')
+}
