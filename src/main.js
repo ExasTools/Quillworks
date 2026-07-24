@@ -3,7 +3,7 @@ import { displayHeader, displayLoreHeader, displayTimeHeader, displayWBHeader } 
 import { showCharacters } from './features/characters.js' // import characters page
 import { showPlaces } from './features/places.js' // import places page
 import { showDevLog } from './features/devlog.js'
-import { initDebugMsg } from './modules/debug.js'
+import { initDebugTools } from './modules/debug.js'
 
 const app = document.querySelector('#app')
 const ver = "0.1.3"
@@ -27,7 +27,7 @@ function showHome() {
   setActiveButton('home-button')
   if (!debugMsg) {
     debugMsg = true
-    initDebugMsg()
+    initDebugTools()
   }
 }
 
