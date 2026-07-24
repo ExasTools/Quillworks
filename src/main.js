@@ -7,9 +7,8 @@ import { initDebugMsg } from './modules/debug.js'
 
 const app = document.querySelector('#app')
 const ver = "0.1.3"
-var debugMsg = false
-// Debugging has been passed to VITE through `npm run dev`
-
+let debugMsg = false
+// Vite enables debugging automatically during `npm run dev`
 
 function showHome() {
   app.innerHTML = `
