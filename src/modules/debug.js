@@ -44,3 +44,41 @@ export function initDebugTools() {
 
 	console.log(`[Quillworks] Debugging enabled. Try qwDebug.dump()`)
 }
+
+function seed(key, amount) {
+	if (!debugging) return
+
+	if (key !== 'places') {
+		console.error(`[Quillworks] Cannot seed "${key}" yet`)
+		return
+	}
+
+	if (!Number.isInteger(amount) || amount < 1) {
+		console.error('[Quillworks] Amount must be a positive integer.')
+		return
+	}
+
+	if (!confirm(`Replace "${key}" with ${amount} generated places?`)) {
+		return
+	}
+
+	const places = []
+
+	for (let index = 0; index < amount; index++) {
+		const place = {
+			name: `Debug Place ${index + 1}`,
+			type: 'Debug Type',
+			region: 'Debug Region'
+			desc: `Generated place number ${index + 1}.`
+		}
+
+		places.push(place)
+	}
+
+	const json = JSON.stringify(places)
+
+	localStorage.setItem(key, json)
+	debugStorageSave(key, json)
+
+	console.log('[Quillworks] Refresh the page to load the seeded data')
+}
