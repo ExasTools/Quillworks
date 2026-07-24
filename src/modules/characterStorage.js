@@ -1,6 +1,11 @@
+import { debugStorageSave } from './debug.js'
+
 export function saveCharacters(characters) {
-    localStorage.setItem('characters', JSON.stringify(characters))
-    console.log("Saved!")
+    const json = JSON.stringify(characters)
+
+    localStorage.setItem('characters', json)
+    debugStorageSave('characters', json)
+    //localStorage.setItem('characters', JSON.stringify(characters)) // Single line implementation, but neglects debug.
 }
 
 export function loadCharacters() {

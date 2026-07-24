@@ -14,7 +14,12 @@ export function showDevLog({
           <p><strong>Development Log</strong></p>
           
           <section class="tool-card">
-            <section class="tool-card-dlog"> <!-- Section intentionally left unclosed because I happen to like how the sections look when its stacked like this. -->
+           <!-- Section intentionally left unclosed because I happen to like how the sections look when its stacked like this. -->
+            <section class="tool-card-dlog">
+              <p><strong>build-0.1.3</strong></p>
+              <p>• Created debugging module
+            <hr class=card-custom-divider>
+            <section class="tool-card-dlog"> 
               <p><strong>build-0.1.2</strong></p>
               <p>• Added active-state logic to show the current navigation page.</p>
               <p>• Added back Lore Vault button and extra redundant header buttons to ease navigation.</p>
@@ -23,7 +28,8 @@ export function showDevLog({
               <p>• Refactored Character code into its own module, helping my eyes because scrolling sucks </p>
               <p>• Refactored Devlog into its own module too. Ironically it also serves as an example structure for future modules. </p>
               <p>• Light formatting changes on Character page
-              <hr class=card-custom-divider>
+            </section>
+              
             <section class="tool-card-dlog">
               <p><strong>build-0.1.1</strong></p>
               <p>• Added the beginnings of a Settings page with a lil button</p>
@@ -32,6 +38,7 @@ export function showDevLog({
               <p>• Added some customization to certain pages that were lacking it
               <div class="todo"><strong>TODO:</strong> Remake header to make navigation not completely arse.</div>
             </section>
+
             <section class="tool-card-dlog">
               <p><strong>build-0.1.0 (Character Page Milestone)</strong></p>
               <p>• Settled on "Quillworks" as the final project name
