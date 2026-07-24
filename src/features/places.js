@@ -31,9 +31,9 @@ export function showPlaces({
           <button id="submit-button">Save</button>
         </section>
     
-        <section class="tool-card" id="places-list"></section>
+        <section class="tool-card card-grid" id="places-list"></section>
         ${displayFooter()}
-        <center><code>places_page_v1</code></center>
+        <center><code>places_page_v2</code></center>
         </main>
       `
       if (Places.length !== 0) {
