@@ -17,6 +17,7 @@ export function displayLoreHeader() {
     <h1> The Lore Vault </h1>
       <section class="header-section">
         <button id="home-button" class="nav-button">Home</button>
+        <button id="vault-button" class="nav-button">Lore Vault</button>
         <button id="char-button" class="nav-button">Characters</button>
         <button id="wb-button" class="nav-button">World Building</button>
   		<button id="event-button" class="nav-button">Events</button>
@@ -42,6 +43,7 @@ export function displayWBHeader() {
 		<h1> Worldbuilding </h1>
 			<section class="header-section">
 				<button id="vault-button" class="nav-button">Lore Vault</button>
+        <button id="wb-button" class="nav-button">Worldbuilding</button>
 				<button id="locs-button" class="nav-button">Places</button>
 				<button id="nations-button" class="nav-button">Nations</button>
 				<button id="factions-button" class="nav-button">Factions</button>
